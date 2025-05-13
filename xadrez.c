@@ -1,46 +1,72 @@
 #include <stdio.h>
 
+// Função recursiva para movimentar a Torre para a direita de forma linear
+void moverTorre(int casas) 
+{
+    if (casas == 0)
+        return;
+    printf("Direita\n");
+    moverTorre(casas - 1);
+}
+
+// Função recursiva para movimentar o Bispo na diagonal superior direita
+void moverBispoComRecursividadeELoop(int linha, int maximo) 
+{
+    if (linha >= maximo) return;
+
+    // Loop interno representa o deslocamento para a direita
+    for (int coluna = linha; coluna <= linha; coluna++)
+    {
+        printf("Cima, Direita\n"); 
+    }
+
+    // Chamada recursiva para a próxima linha
+    moverBispoComRecursividadeELoop(linha + 1, maximo);
+}
+
+// Função recursiva para movimentar a Rainha para a esquerda de forma linear
+void moverRainha(int casas) 
+{
+    if (casas == 0)
+        return;
+    printf("Esquerda\n");
+    moverRainha(casas - 1);
+}
+
 int main() 
 {
-    // Movimentação da Torre (5 casas para a direita) usando FOR
-    int i;
+    // Movimento da Torre com recursividade
     printf("Movimento da Torre:\n");
-    for (i = 1; i <= 5; i++) 
-    {
-        printf("Direita\n");
-    }
+    moverTorre(5);
 
-    // Movimentação do Bispo (5 casas na diagonal superior direita) usando WHILE
-    int j = 1;
-    printf("\nMovimento do Bispo:\n");
-    while (j <= 5) 
-    {
-        printf("Cima, Direita\n");
-        j++;
-    }
+     printf("\nMovimento do Bispo (Recursividade + Loop Interno):\n");
+    moverBispoComRecursividadeELoop(0, 5);
 
-    // Movimentação da Rainha (8 casas para a esquerda) usando DO-WHILE
-    int k = 1;
+    // Movimento da Rainha com recursividade
     printf("\nMovimento da Rainha:\n");
-    do 
-    {
-        printf("Esquerda\n");
-        k++;
-    } while (k <= 8);
+    moverRainha(8);
 
-    // Movimentação do Cavalo (2 casas para baixo, 1 para a esquerda) usando loops aninhados for e while
-    printf("\nMovimento do Cavalo:\n");
+     printf("\nMovimento do Cavalo (2 casas para cima, 1 para a direita):\n");
 
-    for (int m = 1; m <= 2; m++) 
-    { 
-        printf("Baixo\n");
+    for (int i = 0; i < 1; i++) // loop externo de controle 
+    {  
+        for (int cima = 0, direita = 0; cima <= 2; cima++) 
+        {
 
-        int n = 0;
-        while (n < 1 && m == 2) 
-        { 
-            printf("Esquerda\n");
-            n++;
+            if (cima < 2) 
+            {
+                printf("Cima\n");
+                continue;
+            }
+
+            // Quando cima == 2, move para a direita
+            if (direita < 1) 
+            {
+                printf("Direita\n");
+                break; // encerra o movimento após um L
+            }
         }
     }
+    
     return 0;
 }
